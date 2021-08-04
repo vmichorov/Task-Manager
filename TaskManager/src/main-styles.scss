@@ -1,0 +1,21 @@
+$cyan: #00ffff;
+$blue: #0000ff;
+
+$light-blue: #6699ff;
+$dark-blue: #003399;
+
+$light: #f8f8f8;
+
+$primary: $blue;
+$link: $light-blue;
+
+// Global styles
+
+html {
+  background: linear-gradient(to right top, $blue, $cyan);
+}
+
+html,
+body {
+  height: 100%;
+}
