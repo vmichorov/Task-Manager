@@ -1,8 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CreateListComponent } from './views/create-list/create-list.component';
 import { MainViewComponent } from './views/main-view/main-view.component';
 
-const routes: Routes = [{ path: '', component: MainViewComponent }];
+const routes: Routes = [
+  { path: '', redirectTo: 'lists', pathMatch: 'full' },
+  { path: 'lists', component: MainViewComponent },
+  { path: 'lists/:listId', component: MainViewComponent },
+  { path: 'create-list', component: CreateListComponent },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
