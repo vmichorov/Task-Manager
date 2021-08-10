@@ -13,6 +13,9 @@ export class TaskService {
   getLists() {
     return this.webService.get('lists');
   }
+  createTask(content: string, listId: string) {
+    return this.webService.post(`lists/${listId}/tasks`, { content });
+  }
   getTasks(listId: string) {
     return this.webService.get(`lists/${listId}/tasks`);
   }

@@ -21,7 +21,12 @@
       <div class="task" *ngFor="let task of tasks">
         <p>{{ task.content }}</p>
       </div>
-      <button class="circle-add-button button is-primary">Add</button>
+      <button
+        class="circle-add-button button is-primary"
+        routerLink="./create-task"
+      >
+        Add
+      </button>
     </div>
   </div>
 </div>

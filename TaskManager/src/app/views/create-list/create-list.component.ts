@@ -13,9 +13,9 @@ export class CreateListComponent implements OnInit {
   ngOnInit(): void {}
 
   createList(title: string) {
-    this.taskService.createList(title).subscribe((res: any) => {
-      console.log(res);
-      this.router.navigateByUrl(`lists/${res._id}`);
+    this.taskService.createList(title).subscribe((list: any) => {
+      console.log(list);
+      this.router.navigateByUrl(`lists/${list._id}`);
     });
   }
 }
