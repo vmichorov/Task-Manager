@@ -12,7 +12,7 @@
           <p>{{ list.title }}</p>
         </a>
       </div>
-      <button class="button is-primary" routerLink="/create-list">
+      <button class="button is-primary create-button" routerLink="/create-list">
         Create New List
       </button>
     </div>
@@ -21,6 +21,7 @@
       <div class="task" *ngFor="let task of tasks">
         <p>{{ task.content }}</p>
       </div>
+      <button class="circle-add-button button is-primary">Add</button>
     </div>
   </div>
 </div>
