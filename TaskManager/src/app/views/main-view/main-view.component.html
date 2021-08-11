@@ -18,7 +18,12 @@
     </div>
     <div class="tasks-list has-background-light">
       <h1 class="title has-text-primary">Tasks</h1>
-      <div class="task" *ngFor="let task of tasks">
+      <div
+        class="task"
+        *ngFor="let task of tasks"
+        (click)="onClick(task)"
+        [ngClass]="{ completed: task.isCompleted }"
+      >
         <p>{{ task.content }}</p>
       </div>
       <button

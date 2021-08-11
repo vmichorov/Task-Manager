@@ -12,7 +12,11 @@ async function startApp() {
   await databeseCfg(app);
   app.use(bodyParser.json());
   app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header(
+      "Access-Control-Allow-Methods",
+      "GET, POST, HEAD, OPTIONS, PUT, PATCH, DELETE"
+    );
     res.header(
       "Access-Control-Allow-Headers",
       "Origin, X-Requested-With, Content-Type, Accept"
@@ -96,9 +100,10 @@ async function startApp() {
       },
       {
         content: req.body.content,
+        isCompleted: req.body.isCompleted,
       }
     ).then(() => {
-      res.sendStatus(200);
+      res.send({ message: "Updated" });
     });
   });
   // delete existing task assigned to a specific list

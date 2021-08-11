@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { List } from 'src/app/models/list.model';
+import { Task } from 'src/app/models/task.model';
 import { TaskService } from 'src/app/task.service';
 
 @Component({
@@ -8,8 +10,8 @@ import { TaskService } from 'src/app/task.service';
   styleUrls: ['./main-view.component.scss'],
 })
 export class MainViewComponent implements OnInit {
-  lists: any;
-  tasks: any;
+  lists: List[] = [];
+  tasks: Task[] = [];
 
   constructor(
     private taskService: TaskService,
@@ -24,6 +26,13 @@ export class MainViewComponent implements OnInit {
     });
     this.taskService.getLists().subscribe((lists: any) => {
       this.lists = lists;
+    });
+  }
+
+  onClick(task: Task) {
+    this.taskService.complete(task).subscribe(() => {
+      console.log('Completed');
+      task.isCompleted = true;
     });
   }
 }
