@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 
 const databeseCfg = require("./database/mongoose");
 
-const { List, Task } = require("./database/models");
+const { List, Task, User } = require("./database/models");
 
 startApp();
 
@@ -23,6 +23,45 @@ async function startApp() {
     );
     next();
   });
+  const verifySession = (req, res, next) => {
+    let refToken = req.header("x-refresh-token");
+    let _id = req.header("_id");
+
+    User.findByIdAndToken(_id, refToken)
+      .then((user) => {
+        if (!user) {
+          return Promise.reject({
+            error:
+              "User not found. Make sure that the refresh token and user id are correct",
+          });
+        }
+        req.user_id = user._id;
+        req.user = user;
+        req.refToken = refToken;
+
+        let isSessionValid = false;
+
+        user.sessions.forEach((session) => {
+          if (session.token === refToken) {
+            if (User.hasRefTokenExpired(session.expiresAt) === false) {
+              isSessionValid = true;
+            }
+          }
+        });
+        if (isSessionValid) {
+          next();
+        } else {
+          return Promise.reject({
+            error: "Refresh token has expired or the session is invalid",
+          });
+        }
+      })
+      .catch((err) => {
+        res.status(401).send(err);
+      });
+  };
+
+  /* List and Task Routes */
 
   // get all lists
   app.get("/lists", (req, res) => {
@@ -114,6 +153,69 @@ async function startApp() {
     }).then((removedTask) => {
       res.send(removedTask);
     });
+  });
+
+  /* User Routes */
+
+  // sign-up user
+  app.post("/users", (req, res) => {
+    const body = req.body;
+    const newUser = new User(body);
+    newUser
+      .save()
+      .then(() => {
+        return newUser.createSession();
+      })
+      .then((refToken) => {
+        return newUser.genAccToken().then((accToken) => {
+          return { accToken, refToken };
+        });
+      })
+      .then((authTokens) => {
+        res
+          .header("x-refresh-token", authTokens.refToken)
+          .header("x-access-token", authTokens.accToken)
+          .send(newUser);
+      })
+      .catch((e) => {
+        res.status(400).send(e);
+      });
+  });
+  // login user
+  app.post("/users/login", (req, res) => {
+    const email = req.body.email;
+    const password = req.body.password;
+
+    User.findByCredentials(email, password)
+      .then((user) => {
+        return user
+          .createSession()
+          .then((refToken) => {
+            return user.genAccToken().then((accToken) => {
+              return { accToken, refToken };
+            });
+          })
+          .then((authTokens) => {
+            res
+              .header("x-refresh-token", authTokens.refToken)
+              .header("x-access-token", authTokens.accToken)
+              .send(user);
+          });
+      })
+      .catch((err) => {
+        res.status(400).send(err);
+      });
+  });
+  // generate access token
+  app.get("/users/me/access-token", verifySession, (req, res) => {
+    req.user
+      .genAccToken()
+      .then((accToken) => {
+        res.header("x-access-token", accToken).send({ accToken });
+      })
+      .catch((err) => {
+        res.status(400).send(err);
+      });
   });
 
   app.listen(3000, () => {
