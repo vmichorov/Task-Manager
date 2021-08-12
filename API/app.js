@@ -21,6 +21,10 @@ async function startApp() {
       "Access-Control-Allow-Headers",
       "Origin, X-Requested-With, Content-Type, Accept"
     );
+    res.header(
+      "Access-Control-Expose-Headers",
+      "x-access-token, x-refresh-token"
+    );
     next();
   });
   const verifySession = (req, res, next) => {

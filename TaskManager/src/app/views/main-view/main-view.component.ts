@@ -10,8 +10,8 @@ import { TaskService } from 'src/app/task.service';
   styleUrls: ['./main-view.component.scss'],
 })
 export class MainViewComponent implements OnInit {
-  lists: List[] = [];
-  tasks: Task[] = [];
+  lists: any = [];
+  tasks: any = [];
 
   constructor(
     private taskService: TaskService,
@@ -20,9 +20,13 @@ export class MainViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
-      this.taskService.getTasks(params.listId).subscribe((tasks: any) => {
-        this.tasks = tasks;
-      });
+      if (params.listId) {
+        this.taskService.getTasks(params.listId).subscribe((tasks: any) => {
+          this.tasks = tasks;
+        });
+      } else {
+        this.tasks = undefined;
+      }
     });
     this.taskService.getLists().subscribe((lists: any) => {
       this.lists = lists;
