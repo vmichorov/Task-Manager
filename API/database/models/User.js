@@ -87,6 +87,10 @@ schema.methods.createSession = function () {
     });
 };
 
+schema.statics.getJWTSecret = () => {
+  return JWT_SECRET;
+};
+
 schema.statics.findByIdAndToken = function (_id, token) {
   const User = this;
 
