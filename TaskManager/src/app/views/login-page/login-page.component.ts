@@ -14,11 +14,15 @@ export class LoginPageComponent implements OnInit {
   ngOnInit(): void {}
 
   onLoginBtnClick(email: string, password: string) {
-    this.authService
-      .login(email, password)
-      .subscribe((res: HttpResponse<any>) => {
-        console.log(res);
-        this.router.navigate(['/lists']);
-      });
+    if (email != '' && password != '') {
+      this.authService
+        .login(email, password)
+        .subscribe((res: HttpResponse<any>) => {
+          console.log(res);
+          this.router.navigate(['/lists']);
+        });
+    } else {
+      console.log('All fields are required!');
+    }
   }
 }

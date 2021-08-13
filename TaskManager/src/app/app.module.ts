@@ -9,6 +9,7 @@ import { CreateListComponent } from './views/create-list/create-list.component';
 import { CreateTaskComponent } from './views/create-task/create-task.component';
 import { LoginPageComponent } from './views/login-page/login-page.component';
 import { WebReqInterceptor } from './web-req.interceptor.service';
+import { RegisterPageComponent } from './views/register-page/register-page.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { WebReqInterceptor } from './web-req.interceptor.service';
     CreateListComponent,
     CreateTaskComponent,
     LoginPageComponent,
+    RegisterPageComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [

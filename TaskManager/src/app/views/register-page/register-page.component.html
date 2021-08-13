@@ -1,6 +1,6 @@
 <div class="content">
   <div class="white-box">
-    <h1 class="title has-text-primary">Login</h1>
+    <h1 class="title has-text-primary">Register</h1>
     <div class="field">
       <p class="control has-icons-left has-icons-right">
         <input
@@ -27,16 +27,35 @@
         </span>
       </p>
     </div>
+    <div class="field">
+      <p class="control has-icons-left">
+        <input
+          #repeatPasswordInput
+          class="input has-background-light"
+          type="password"
+          placeholder="Repeat Password"
+        />
+        <span class="icon is-small is-left">
+          <i class="fas fa-lock"></i>
+        </span>
+      </p>
+    </div>
     <div class="field is-pulled-right">
       <p class="control">
-        <button class="button is-white is-left otherBtn" routerLink="/register">
-          Go to Register
+        <button class="button is-white is-left otherBtn" routerLink="/login">
+          Go to Login
         </button>
         <button
           class="button is-primary has-text-white"
-          (click)="onLoginBtnClick(emailInput.value, passwordInput.value)"
+          (click)="
+            onRegisterBtnClick(
+              emailInput.value,
+              passwordInput.value,
+              repeatPasswordInput.value
+            )
+          "
         >
-          Login
+          Register
         </button>
       </p>
     </div>

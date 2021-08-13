@@ -27,6 +27,18 @@ export class AuthService {
       })
     );
   }
+  register(email: string, password: string) {
+    return this.webService.register(email, password).pipe(
+      shareReplay(),
+      tap((res: HttpResponse<any>) => {
+        this.setSession(
+          res.body._id,
+          res.headers.get('x-access-token'),
+          res.headers.get('x-refresh-token')
+        );
+      })
+    );
+  }
   logout() {
     this.removeSession();
 
