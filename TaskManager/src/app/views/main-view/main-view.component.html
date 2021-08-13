@@ -15,6 +15,12 @@
       <button class="button is-primary create-button" routerLink="/create-list">
         Create New List
       </button>
+      <button
+        class="button logout-button is-danger"
+        (click)="onLogoutBtnClick()"
+      >
+        Logout
+      </button>
     </div>
     <div class="tasks-list has-background-light">
       <div *ngIf="tasks">

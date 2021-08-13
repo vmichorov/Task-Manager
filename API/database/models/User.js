@@ -48,7 +48,7 @@ schema.methods.genAccToken = function () {
       { _id: user._id.toHexString() },
       JWT_SECRET,
       {
-        expiresIn: "15min",
+        expiresIn: "10min",
       },
       (err, token) => {
         if (!err) {

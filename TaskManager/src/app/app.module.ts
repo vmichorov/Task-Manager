@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -8,11 +8,20 @@ import { MainViewComponent } from './views/main-view/main-view.component';
 import { CreateListComponent } from './views/create-list/create-list.component';
 import { CreateTaskComponent } from './views/create-task/create-task.component';
 import { LoginPageComponent } from './views/login-page/login-page.component';
+import { WebReqInterceptor } from './web-req.interceptor.service';
 
 @NgModule({
-  declarations: [AppComponent, MainViewComponent, CreateListComponent, CreateTaskComponent, LoginPageComponent],
+  declarations: [
+    AppComponent,
+    MainViewComponent,
+    CreateListComponent,
+    CreateTaskComponent,
+    LoginPageComponent,
+  ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: WebReqInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

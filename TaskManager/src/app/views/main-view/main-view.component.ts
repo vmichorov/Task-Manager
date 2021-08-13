@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { AuthService } from 'src/app/auth.service';
 import { List } from 'src/app/models/list.model';
 import { Task } from 'src/app/models/task.model';
 import { TaskService } from 'src/app/task.service';
@@ -15,7 +16,8 @@ export class MainViewComponent implements OnInit {
 
   constructor(
     private taskService: TaskService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -38,5 +40,8 @@ export class MainViewComponent implements OnInit {
       console.log('Completed');
       task.isCompleted = true;
     });
+  }
+  onLogoutBtnClick() {
+    this.authService.logout();
   }
 }
