@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { AuthService } from 'src/app/auth.service';
 import { List } from 'src/app/models/list.model';
 import { Task } from 'src/app/models/task.model';
@@ -14,15 +14,19 @@ export class MainViewComponent implements OnInit {
   lists: any = [];
   tasks: any = [];
 
+  selectedListId: string = '';
+
   constructor(
     private taskService: TaskService,
     private route: ActivatedRoute,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
       if (params.listId) {
+        this.selectedListId = params.listId;
         this.taskService.getTasks(params.listId).subscribe((tasks: any) => {
           this.tasks = tasks;
         });
@@ -43,5 +47,20 @@ export class MainViewComponent implements OnInit {
   }
   onLogoutBtnClick() {
     this.authService.logout();
+  }
+
+  onDeleteListClick() {
+    this.taskService.deleteList(this.selectedListId).subscribe((res: any) => {
+      console.log(res);
+    });
+  }
+
+  onDeleteTaskClick(id: string) {
+    this.taskService
+      .deleteTask(this.selectedListId, id)
+      .subscribe((res: any) => {
+        this.tasks = this.tasks.filter((value: any) => value._id !== id);
+        console.log(res);
+      });
   }
 }

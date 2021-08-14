@@ -112,7 +112,9 @@ async function startApp() {
         $set: req.body,
       }
     ).then(() => {
-      res.sendStatus(200);
+      res.send({
+        message: "Updated",
+      });
     });
   });
   // delete existing list

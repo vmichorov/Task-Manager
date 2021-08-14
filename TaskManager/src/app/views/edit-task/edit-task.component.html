@@ -1,0 +1,21 @@
+<div class="content">
+  <div class="box">
+    <h1 class="title">Edit task</h1>
+    <input
+      #taskContentInput
+      class="input has-background-light is-medium"
+      type="text"
+      placeholder="Enter task content..."
+    />
+    <br /><br />
+    <div class="buttons is-right">
+      <button class="button is-medium" routerLink="/">Cancel</button>
+      <button
+        class="button is-primary has-text-white is-medium"
+        (click)="updateTask(taskContentInput.value)"
+      >
+        Edit
+      </button>
+    </div>
+  </div>
+</div>

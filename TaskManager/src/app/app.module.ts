@@ -10,6 +10,8 @@ import { CreateTaskComponent } from './views/create-task/create-task.component';
 import { LoginPageComponent } from './views/login-page/login-page.component';
 import { WebReqInterceptor } from './web-req.interceptor.service';
 import { RegisterPageComponent } from './views/register-page/register-page.component';
+import { EditListComponent } from './views/edit-list/edit-list.component';
+import { EditTaskComponent } from './views/edit-task/edit-task.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,8 @@ import { RegisterPageComponent } from './views/register-page/register-page.compo
     CreateTaskComponent,
     LoginPageComponent,
     RegisterPageComponent,
+    EditListComponent,
+    EditTaskComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [
