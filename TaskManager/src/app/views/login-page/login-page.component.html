@@ -27,11 +27,8 @@
         </span>
       </p>
     </div>
-    <div class="field is-pulled-right">
+    <div class="field" style="display: flex; justify-content: flex-end">
       <p class="control">
-        <button class="button is-white is-left otherBtn" routerLink="/register">
-          Go to Register
-        </button>
         <button
           class="button is-primary has-text-white"
           (click)="onLoginBtnClick(emailInput.value, passwordInput.value)"
@@ -39,6 +36,11 @@
           Login
         </button>
       </p>
+    </div>
+    <div style="display: flex; justify-content: center">
+      <div>
+        <p>Don't have an account? <a routerLink="/register">Sign up</a> now!</p>
+      </div>
     </div>
   </div>
 </div>

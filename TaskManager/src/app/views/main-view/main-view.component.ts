@@ -52,6 +52,7 @@ export class MainViewComponent implements OnInit {
   onDeleteListClick() {
     this.taskService.deleteList(this.selectedListId).subscribe((res: any) => {
       console.log(res);
+      this.router.navigate(['/lists']);
     });
   }
 
